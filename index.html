@@ -3,66 +3,20 @@
     <head>
         <title>Instant Confetti</title>
 
+        <meta name="viewport" content= "width=device-width, user-scalable=no">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="styles.css">
 
-        <style>
-            #canvas {
-                cursor: pointer;
-                width: 100%;
-                height: 100%;
-            }
-
-            #link {
-                position: absolute;
-                bottom: 10px;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                color: gray;
-                text-align: center;
-                font-family: 'Roboto', sans-serif;
-                cursor: pointer;
-            }
-
-            #text {
-                position: absolute;
-                left: 50%;
-                top: 20%;
-                transform: translate(-50%, -50%);
-                width: 80%;
-                z-index: 1000;
-                text-align: center;
-                font-size: 64px;
-                font-family: 'Roboto', sans-serif;
-                cursor: text;
-                text-transform: uppercase;
-                overflow-wrap: anywhere;
-            }
-
-            #input {
-                overflow-wrap: anywhere;
-                border: 0;
-                background-color: transparent;
-                display: none;
-                position: absolute;
-                top: 20%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                width: 80%;
-                z-index: 1000;
-                text-align: center;
-                font-size: 64px;
-                font-family: 'Roboto', sans-serif;
-                cursor: text;
-                text-transform: uppercase;
-            }
-
-            #input:focus {
-                outline: none;
-                cursor: text;
-            }
-        </style>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-63ZQE89DGL"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-63ZQE89DGL');
+        </script>
     </head>
 
     <body>
@@ -72,108 +26,6 @@
         <div id='link'>Click to fire again!</div>
 
         <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
-
-        <script>
-            const BASE_URL = window.location.host ? window.location.host : window.location.pathname
-
-            const body = document.querySelector('body')
-            const canvas = document.querySelector('#canvas')
-            const text = document.querySelector('#text')
-            const input = document.querySelector('#input')
-            const link = document.querySelector('#link')
-            const audio = new Audio('confetti.wav');
-
-            const url = new URL(document.location)
-            if(url.searchParams) {
-                const parsed = url.searchParams.get('text') || ''
-                text.innerText = parsed
-                input.value = parsed
-            }
-
-            const cannon = confetti.create(canvas, {
-                resize: true,
-                useWorker: false
-            });
-
-            function fireCannon(playSound) {
-                const count = 200;
-
-                const defaults = {
-                    origin: { y: 1  }
-                };
-
-                function fireSingle(particleRatio, opts) {
-                    confetti(Object.assign({}, defaults, opts, {
-                        particleCount: Math.floor(count * particleRatio)
-                    }));
-                }
-
-                if(playSound) {
-                    audio.play()
-                }
-
-                fireSingle(0.25, {
-                    spread: 26,
-                    startVelocity: 55,
-                });
-
-                fireSingle(0.2, {
-                    spread: 60,
-                });
-
-                fireSingle(0.35, {
-                    spread: 100,
-                    decay: 0.91,
-                    scalar: 0.8
-                });
-
-                fireSingle(0.1, {
-                    spread: 120,
-                    startVelocity: 25,
-                    decay: 0.92,
-                    scalar: 1.2
-                });
-
-                fireSingle(0.1, {
-                    spread: 120,
-                    startVelocity: 45,
-                });
-            }
-
-            fireCannon(false)
-
-            body.addEventListener('click', () => {
-                fireCannon(true)
-            })
-
-            text.addEventListener('click', () => {
-                text.style.display = 'none'
-                input.style.display = 'block'
-                input.focus()
-                event.stopImmediatePropagation()
-            })
-
-            input.addEventListener('click', (event) => {
-                event.stopImmediatePropagation()
-            })
-
-            input.addEventListener('change', (event) => {
-                const text = event.target.value
-                text.innerText = text
-                window.location.replace(BASE_URL + '?text=' + text)
-            })
-
-            input.addEventListener('blur', (event) => {
-                text.style.display = 'block'
-                input.style.display = 'none'
-                event.stopImmediatePropagation()
-            })
-
-            link.addEventListener('click', () => {
-                const text = window.prompt('Enter input')
-                const base = window.location.host ? window.location.host : window.location.pathname
-                window.location = base + '?text=' + text
-            })
-        </script>
+        <script src="index.js"></script>
     </body>
 </html>
