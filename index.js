@@ -89,15 +89,15 @@ function updateUrl(entered) {
     window.history.pushState({ path: url }, '', url)
 }
 
-body.addEventListener('click', () => {
+body.addEventListener('click', (event) => {
     fireCannon(true)
 })
 
-text.addEventListener('click', () => {
-    text.style.display = 'none'
-    input.style.display = 'block'
-    input.focus()
-    event.stopImmediatePropagation()
+text.addEventListener('click', (event) => {
+    // text.style.display = 'none'
+    // input.style.display = 'block'
+    // input.focus()
+    // event.stopImmediatePropagation()
 })
 
 input.addEventListener('click', (event) => {
@@ -117,7 +117,7 @@ input.addEventListener('blur', (event) => {
 link.addEventListener('click', (event) => {
     event.stopImmediatePropagation()
 
-    const entered = window.prompt('Enter input');
+    const entered = window.prompt('What do you want the page to say?');
     if(!entered) return
 
     updateUrl(entered);
