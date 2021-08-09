@@ -128,7 +128,9 @@ link.addEventListener('click', (event) => {
 })
 
 setInterval(() => {
-    fireCannon(false)
+    if(!document.hidden) {
+        fireCannon(false)
+    }
 }, 5000)
 
 fireCannon(false)
